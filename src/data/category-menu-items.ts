@@ -25,11 +25,18 @@ export const categoryMenuItems: CategoryMenuGroup[] = [
     ],
   },
   {
+    name: 'DevOps',
+    children: [
+      { name: 'Docker', slug: 'docker' },
+    ]
+  },
+  {
     name: 'Language',
     children: [
       { name: 'C++', slug: 'cpp' },
       { name: 'Rust', slug: 'rust' },
       { name: 'Java', slug: 'java' },
+      { name: 'Kotlin', slug: 'kotlin' },
       { name: 'JavaScript', slug: 'javascript' },
     ],
   },
@@ -39,6 +46,7 @@ export const categoryMenuItems: CategoryMenuGroup[] = [
       { name: '알고리즘', slug: 'algorithm' },
       { name: 'Neovim', slug: 'nvim' },
       { name: 'GitHub Actions', slug: 'github-actions' },
+      { name: 'etc', slug: 'etc' },
     ],
   },
 ]
