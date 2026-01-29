@@ -20,6 +20,9 @@
 # velite
 /.velite
 
+# content (별도 레포에서 관리)
+/content
+
 # production
 /build
 
