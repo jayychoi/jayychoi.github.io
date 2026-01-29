@@ -1,3 +1,4 @@
+import rehypeShiki from "@shikijs/rehype";
 import { defineConfig, s } from "velite";
 
 export default defineConfig({
@@ -7,6 +8,20 @@ export default defineConfig({
     assets: "public/static",
     base: "/static/",
     clean: true,
+  },
+  markdown: {
+    rehypePlugins: [
+      [
+        // biome-ignore lint/suspicious/noExplicitAny: <following documentation>
+        rehypeShiki as any,
+        {
+          themes: {
+            light: "github-light",
+            dark: "github-dark",
+          },
+        },
+      ],
+    ],
   },
   collections: {
     posts: {
