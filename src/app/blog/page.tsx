@@ -1,0 +1,13 @@
+import PostList from "@/components/blog/post-list";
+import { getAllPosts } from "@/lib/posts";
+
+export default function BlogPage() {
+  const posts = getAllPosts();
+
+  return (
+    <div>
+      <h1 className="mb-6 text-2xl font-bold">전체 글</h1>
+      <PostList posts={posts} />
+    </div>
+  );
+}
