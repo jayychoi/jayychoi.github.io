@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import MDXContent from "@/components/blog/mdx-content";
+import MarkdownContent from "@/components/blog/mdx-content";
 import SeriesNav from "@/components/blog/series-nav";
 import TOC from "@/components/blog/toc";
 import { getAllPosts, getPostBySlug, getPostsBySeries } from "@/lib/posts";
@@ -63,7 +63,7 @@ export default async function PostPage({
           )}
         </header>
 
-        <MDXContent code={post.content} />
+        <MarkdownContent html={post.content} />
 
         {seriesPosts.length > 0 && (
           <SeriesNav currentSlug={post.slug} seriesPosts={seriesPosts} />

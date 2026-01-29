@@ -25,7 +25,7 @@ export default defineConfig({
         order: s.number().optional(),
         metadata: s.metadata(),
         toc: s.toc(),
-        content: s.mdx(),
+        content: s.markdown(),
       }),
     },
     projects: {
@@ -42,7 +42,7 @@ export default defineConfig({
         github: s.string().optional(),
         url: s.string().optional(),
         thumbnail: s.image().optional(),
-        content: s.mdx(),
+        content: s.markdown(),
       }),
     },
     about: {
@@ -50,7 +50,7 @@ export default defineConfig({
       pattern: "about.md",
       single: true,
       schema: s.object({
-        content: s.mdx(),
+        content: s.markdown(),
       }),
     },
   },
