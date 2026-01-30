@@ -119,12 +119,29 @@
 
 
 
-/* 인라인 코드블럭 배경 */
+/* h2 스타일 */
+.prose :where(h2) {
+  font-size: 1.75em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border);
+}
+
+/* 하이퍼링크 스타일 */
+.prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: oklch(0.546 0.245 262.881);
+  text-decoration: none;
+}
+.prose :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  color: oklch(0.424 0.199 265.638);
+}
+
+/* 인라인 코드블럭 */
 .prose :where(code):not(:where(pre code)) {
   background-color: #f6f8fa;
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875em;
+  font-weight: 400;
 }
 
 /* 인라인 코드블럭 앞뒤 backtick 제거 */
@@ -136,6 +153,19 @@
 /* 다크모드 인라인 코드블럭 배경 */
 .dark .prose :where(code):not(:where(pre code)) {
   background-color: oklch(0.269 0 0);
+}
+
+/* 다크모드 하이퍼링크 */
+.dark .prose :where(a):not(:where(.not-prose, .not-prose *)) {
+  color: oklch(0.707 0.165 254.624);
+}
+.dark .prose :where(a):not(:where(.not-prose, .not-prose *)):hover {
+  color: oklch(0.788 0.153 252.289);
+}
+
+/* 다크모드 h2 border */
+.dark .prose :where(h2) {
+  border-bottom-color: oklch(1 0 0 / 10%);
 }
 
 /* shiki dual theme */
