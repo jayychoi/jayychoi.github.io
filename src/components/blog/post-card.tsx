@@ -1,47 +1,76 @@
-import Link from "next/link";
-import type { Post } from "#velite";
-import { CATEGORY_LABELS } from "@/lib/categories";
+"use client";
 
-export default function PostCard({ post }: { post: Post }) {
+import Link from "next/link";
+import { useState } from "react";
+import PostMetaBadges from "./post-meta-badges";
+
+interface PostCardProps {
+  slug: string;
+  title: string;
+  description?: string;
+  created: string;
+  category: string;
+  tags: string[];
+  series?: string;
+  order?: number;
+}
+
+export default function PostCard({
+  slug,
+  title,
+  description,
+  created,
+  category,
+  tags,
+  series,
+  order,
+}: PostCardProps) {
+  const [badgeHover, setBadgeHover] = useState(false);
+  const [cardHover, setCardHover] = useState(false);
+
+  const showCardHighlight = cardHover && !badgeHover;
+
   return (
-    <article className="group relative px-4 py-6 -mx-4 transition-colors hover:bg-accent">
+    <article
+      className="relative px-4 py-6 -mx-4 transition-colors"
+      style={
+        showCardHighlight ? { backgroundColor: "var(--accent)" } : undefined
+      }
+      onMouseEnter={() => setCardHover(true)}
+      onMouseLeave={() => setCardHover(false)}
+    >
       <Link
-        href={`/blog/posts/${post.slug}`}
+        href={`/blog/posts/${slug}`}
         className="absolute inset-0"
-        aria-label={post.title}
+        aria-label={title}
       />
       <div className="space-y-2">
-        <h2 className="text-xl font-bold group-hover:text-primary transition-colors">
-          {post.title}
+        <h2
+          className="text-xl font-bold transition-colors"
+          style={showCardHighlight ? { color: "var(--primary)" } : undefined}
+        >
+          {title}
         </h2>
-        <p className="text-muted-foreground line-clamp-2">{post.description}</p>
-        <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-          <time dateTime={post.created}>
-            {new Date(post.created).toLocaleDateString("ko-KR")}
+        {description && (
+          <p className="text-muted-foreground line-clamp-2">{description}</p>
+        )}
+        <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+          <time dateTime={created}>
+            {new Date(created).toLocaleDateString("ko-KR")}
           </time>
-          <Link
-            href={`/blog/categories/${post.category}`}
-            className="relative z-10 text-xs px-2 py-0.5 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
+          <div
+            className="flex flex-wrap items-center gap-2"
+            onMouseEnter={() => setBadgeHover(true)}
+            onMouseLeave={() => setBadgeHover(false)}
           >
-            {CATEGORY_LABELS[post.category] ?? post.category}
-          </Link>
-          {post.series && (
-            <Link
-              href={`/blog/series/${post.series}`}
-              className="relative z-10 text-xs px-2 py-0.5 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              {post.series}
-            </Link>
-          )}
-          {post.tags.map((tag) => (
-            <Link
-              key={tag}
-              href={`/blog/tags/${tag}`}
-              className="relative z-10 text-xs hover:text-foreground transition-colors"
-            >
-              #{tag}
-            </Link>
-          ))}
+            <PostMetaBadges
+              category={category}
+              tags={tags}
+              series={series}
+              order={order}
+              linkClassName="relative z-10"
+            />
+          </div>
         </div>
       </div>
     </article>

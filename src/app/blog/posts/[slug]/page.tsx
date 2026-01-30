@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import MarkdownContent from "@/components/blog/mdx-content";
+import MarkdownContent from "@/components/blog/markdown-content";
+import PostMetaBadges from "@/components/blog/post-meta-badges";
 import SeriesNav from "@/components/blog/series-nav";
 import TOC from "@/components/blog/toc";
 import { getAllPosts, getPostBySlug, getPostsBySeries } from "@/lib/posts";
@@ -39,28 +40,21 @@ export default async function PostPage({
       <article className="min-w-0 flex-1">
         <header className="mb-8">
           <h1 className="text-3xl font-bold">{post.title}</h1>
-          <div className="mt-3 flex items-center gap-3 text-sm text-muted-foreground">
+          <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <time dateTime={post.created}>
               {new Date(post.created).toLocaleDateString("ko-KR")}
             </time>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-secondary">
-              {post.category}
-            </span>
-            {post.tags.map((tag) => (
-              <span key={tag} className="text-xs">
-                #{tag}
-              </span>
-            ))}
+            <PostMetaBadges
+              category={post.category}
+              tags={post.tags}
+              series={post.series}
+              order={post.order}
+              seriesCount={seriesPosts.length}
+            />
             {post.metadata.readingTime && (
               <span>{post.metadata.readingTime}분 읽기</span>
             )}
           </div>
-          {post.series && (
-            <div className="mt-3 text-sm text-muted-foreground">
-              시리즈: {post.series}
-              {post.order != null && ` (${post.order}/${seriesPosts.length})`}
-            </div>
-          )}
         </header>
 
         <MarkdownContent html={post.content} />

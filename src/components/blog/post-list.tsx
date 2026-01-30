@@ -1,4 +1,5 @@
 import type { Post } from "#velite";
+import { extractPlainText } from "@/lib/html";
 import PostCard from "./post-card";
 
 export default function PostList({ posts }: { posts: Post[] }) {
@@ -11,9 +12,19 @@ export default function PostList({ posts }: { posts: Post[] }) {
   }
 
   return (
-    <div className="divide-y divide-border">
+    <div className="max-w-prose divide-y divide-border">
       {posts.map((post) => (
-        <PostCard key={post.slug} post={post} />
+        <PostCard
+          key={post.slug}
+          slug={post.slug}
+          title={post.title}
+          description={post.description || extractPlainText(post.content)}
+          created={post.created}
+          category={post.category}
+          tags={post.tags}
+          series={post.series}
+          order={post.order}
+        />
       ))}
     </div>
   );
