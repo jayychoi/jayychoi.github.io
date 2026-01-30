@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Comments from "@/components/blog/comments";
 import MarkdownContent from "@/components/blog/markdown-content";
 import PostMetaBadges from "@/components/blog/post-meta-badges";
 import SeriesNav from "@/components/blog/series-nav";
 import TOC from "@/components/blog/toc";
+import { siteConfig } from "@/lib/site";
 import { getAllPosts, getPostBySlug, getPostsBySeries } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -21,6 +23,16 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.description,
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.description,
+      url: `${siteConfig.url}/blog/posts/${post.slug}`,
+      publishedTime: post.created,
+      modifiedTime: post.updated,
+      tags: post.tags,
+      authors: [siteConfig.author],
+    },
   };
 }
 
@@ -62,6 +74,8 @@ export default async function PostPage({
         {seriesPosts.length > 0 && (
           <SeriesNav currentSlug={post.slug} seriesPosts={seriesPosts} />
         )}
+
+        <Comments />
       </article>
 
       <div className="hidden xl:block w-56 shrink-0">

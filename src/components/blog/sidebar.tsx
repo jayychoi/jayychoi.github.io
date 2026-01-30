@@ -5,7 +5,7 @@ import { useState } from "react";
 
 type TabType = "categories" | "til" | "tags" | "series";
 
-interface SidebarProps {
+export interface SidebarProps {
   categoryGroups: {
     label: string;
     items: { id: string; label: string; count: number }[];

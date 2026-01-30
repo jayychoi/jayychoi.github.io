@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import PostListHeader from "@/components/blog/post-list-header";
 import PostList from "@/components/blog/post-list";
 import { getAllSeries, getPostsBySeries } from "@/lib/posts";
@@ -6,6 +7,23 @@ export function generateStaticParams() {
   const series = getAllSeries();
   if (series.length === 0) return [{ series: "_" }];
   return series.map((s) => ({ series: s.name }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ series: string }>;
+}): Promise<Metadata> {
+  const { series: raw } = await params;
+  const series = decodeURIComponent(raw);
+  return {
+    title: `시리즈: ${series}`,
+    description: `${series} 시리즈의 글 목록`,
+    openGraph: {
+      title: `시리즈: ${series}`,
+      description: `${series} 시리즈의 글 목록`,
+    },
+  };
 }
 
 export default async function SeriesPage({

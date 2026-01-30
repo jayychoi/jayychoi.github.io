@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "@/components/header";
+import SearchProvider from "@/components/search-provider";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getSearchItems } from "@/lib/search";
+import { siteConfig } from "@/lib/site";
 import "@/styles/globals.css";
 
 const quicksand = Quicksand({
@@ -18,8 +21,20 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "최재영의 개발 일지",
-  description: "",
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
+  openGraph: {
+    type: "website",
+    locale: siteConfig.locale,
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: siteConfig.url,
+  },
 };
 
 export default function RootLayout({
@@ -31,8 +46,10 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body className={`${pretendard.variable} ${quicksand.variable} antialiased`}>
         <ThemeProvider>
-          <Header />
-          <main className="mx-auto max-w-7xl px-6">{children}</main>
+          <SearchProvider items={getSearchItems()}>
+            <Header />
+            <main className="mx-auto max-w-7xl px-6">{children}</main>
+          </SearchProvider>
         </ThemeProvider>
       </body>
     </html>

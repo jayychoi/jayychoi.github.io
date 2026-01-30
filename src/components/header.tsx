@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { GithubIcon, LinkedinIcon } from "./icons";
+import { useSearch } from "./search-provider";
 import ThemeToggle from "./theme-toggle";
 import { Button } from "./ui/button";
 
@@ -23,6 +24,7 @@ const ICONS = [
 
 export default function Header() {
   const pathname = usePathname();
+  const { open: openSearch } = useSearch();
 
   return (
     <header className="sticky top-0 z-50 bg-white/60 dark:bg-black/60 border-b border-gray-200 dark:border-gray-800 backdrop-blur-sm font-display">
@@ -50,9 +52,7 @@ export default function Header() {
         <div className="flex items-center">
           <button
             type="button"
-            onClick={() => {
-              // TODO: 검색 모달 열기
-            }}
+            onClick={openSearch}
             className="flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-500 transition-colors hover:text-foreground dark:border-gray-700 dark:text-gray-400"
           >
             <span>검색</span>
