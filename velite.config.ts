@@ -32,7 +32,7 @@ export default defineConfig({
         slug: s.slug("posts"),
         created: s.isodate(),
         updated: s.isodate().optional(),
-        description: s.string(),
+        description: s.string().optional(),
         category: s.string(),
         tags: s.array(s.string()),
         type: s.array(s.enum(["til", "series"])).optional(),
