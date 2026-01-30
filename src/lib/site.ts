@@ -7,8 +7,8 @@ export const siteConfig = {
 } as const;
 
 export const giscusConfig = {
-  repo: "" as `${string}/${string}`,
-  repoId: "",
-  category: "",
-  categoryId: "",
+  repo: "jayychoi/jayychoi.github.io" as `${string}/${string}`,
+  repoId: "R_kgDOKvyANA",
+  category: "Announcements",
+  categoryId: "DIC_kwDOKvyANM4C1pkQ",
 } as const;
