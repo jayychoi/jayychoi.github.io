@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+
 type TabType = "categories" | "til" | "tags" | "series";
 
 interface SidebarProps {
