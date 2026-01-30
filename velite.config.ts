@@ -1,4 +1,6 @@
 import rehypeShiki from "@shikijs/rehype";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
 import { defineConfig, s } from "velite";
 
 export default defineConfig({
@@ -11,6 +13,52 @@ export default defineConfig({
   },
   markdown: {
     rehypePlugins: [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "prepend",
+          properties: {
+            className: ["heading-anchor"],
+            ariaHidden: true,
+            tabIndex: -1,
+          },
+          content: {
+            type: "element",
+            tagName: "svg",
+            properties: {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "1em",
+              height: "1em",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              strokeWidth: "2",
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              className: ["heading-anchor-icon"],
+            },
+            children: [
+              {
+                type: "element",
+                tagName: "path",
+                properties: {
+                  d: "M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71",
+                },
+                children: [],
+              },
+              {
+                type: "element",
+                tagName: "path",
+                properties: {
+                  d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",
+                },
+                children: [],
+              },
+            ],
+          },
+        },
+      ],
       [
         // biome-ignore lint/suspicious/noExplicitAny: <following documentation>
         rehypeShiki as any,

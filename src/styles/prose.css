@@ -1,9 +1,43 @@
+/* 앵커 스크롤 시 헤더에 가리지 않도록 오프셋 */
+.prose :where(h1, h2, h3, h4, h5, h6) {
+  scroll-margin-top: 5rem;
+}
+
+/* heading 앵커 링크 아이콘 */
+.prose :where(h1, h2, h3, h4, h5, h6) {
+  position: relative;
+}
+.prose .heading-anchor {
+  position: absolute;
+  left: -1em;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
+  opacity: 0;
+  color: var(--muted-foreground);
+  transition: opacity 0.15s;
+}
+.prose .heading-anchor svg {
+  display: block;
+  width: 0.875em;
+  height: 0.875em;
+}
+.prose :where(h1, h2, h3, h4, h5, h6):hover .heading-anchor {
+  opacity: 1;
+}
+.prose .heading-anchor:hover {
+  color: var(--foreground);
+}
+
 /* h2 스타일 */
 .prose :where(h2) {
   font-size: 1.75em;
   padding-bottom: 0.3em;
   margin-bottom: 0.75em;
   border-bottom: 1px solid var(--border);
+}
+.prose :where(h2) > .heading-anchor {
+  top: calc(50% - 0.15em);
 }
 
 /* 하이퍼링크 스타일 */
