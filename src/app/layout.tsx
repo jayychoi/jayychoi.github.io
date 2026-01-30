@@ -3,7 +3,7 @@ import { Quicksand } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
-import "./globals.css";
+import "@/styles/globals.css";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
