@@ -53,7 +53,7 @@ export default function Header() {
           <button
             type="button"
             onClick={openSearch}
-            className="flex items-center gap-2 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-500 transition-colors hover:text-foreground dark:border-gray-700 dark:text-gray-400"
+            className="flex items-center gap-2 mr-4 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-500 transition-colors hover:text-foreground dark:border-gray-700 dark:text-gray-400"
           >
             <span>검색</span>
             <kbd className="rounded bg-gray-100 px-1.5 py-0.5 text-xs dark:bg-gray-800">
