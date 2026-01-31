@@ -1,8 +1,8 @@
-import { posts } from "#velite";
+import { posts, projects } from "#velite";
 import { decodeHtmlEntities } from "./html";
 
 export interface SearchItem {
-  slug: string;
+  href: string;
   title: string;
   description: string;
   category: string;
@@ -15,12 +15,23 @@ function stripHtml(html: string): string {
 }
 
 export function getSearchItems(): SearchItem[] {
-  return posts.map((p) => ({
-    slug: p.slug,
+  const postItems: SearchItem[] = posts.map((p) => ({
+    href: `/blog/posts/${p.slug}`,
     title: p.title,
     description: p.description ?? "",
     category: p.category,
     tags: p.tags,
     content: stripHtml(p.content),
   }));
+
+  const projectItems: SearchItem[] = projects.map((p) => ({
+    href: `/projects/${p.slug}`,
+    title: p.title,
+    description: p.description,
+    category: "project",
+    tags: p.techs,
+    content: stripHtml(p.content),
+  }));
+
+  return [...postItems, ...projectItems];
 }

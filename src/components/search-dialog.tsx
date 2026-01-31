@@ -56,9 +56,9 @@ export default function SearchDialog({
     if (!open) setQuery("");
   }, [open]);
 
-  function select(slug: string) {
+  function select(href: string) {
     onOpenChange(false);
-    router.push(`/blog/posts/${slug}`);
+    router.push(href);
   }
 
   return (
@@ -95,9 +95,9 @@ export default function SearchDialog({
 
           {results.map((item) => (
             <Command.Item
-              key={item.slug}
+              key={item.href}
               value={item.title}
-              onSelect={() => select(item.slug)}
+              onSelect={() => select(item.href)}
               className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm aria-selected:bg-accent"
             >
               <FileText className="h-4 w-4 shrink-0 text-muted-foreground" />
