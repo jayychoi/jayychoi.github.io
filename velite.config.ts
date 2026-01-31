@@ -99,7 +99,7 @@ export default defineConfig({
         slug: s.slug("projects"),
         description: s.string(),
         techs: s.array(s.string()),
-        status: s.enum(["in-progress", "completed"]),
+        status: s.enum(["in-progress", "active", "archived"]),
         startDate: s.isodate(),
         endDate: s.isodate().optional(),
         github: s.string().optional(),
