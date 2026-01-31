@@ -6,6 +6,7 @@ import {
   getAllSeries,
   getAllTags,
   getTilDates,
+  getTilDateCounts,
 } from "@/lib/posts";
 
 export default function BlogLayout({
@@ -28,6 +29,7 @@ export default function BlogLayout({
     tags: getAllTags(),
     series: getAllSeries(),
     tilDates: getTilDates(),
+    tilDateCounts: getTilDateCounts(),
   };
 
   return (

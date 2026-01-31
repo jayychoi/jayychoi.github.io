@@ -84,3 +84,13 @@ export function getTilDates(): string[] {
   }
   return Array.from(dates).sort().reverse();
 }
+
+// TIL 날짜별 글 수
+export function getTilDateCounts(): Record<string, number> {
+  const counts: Record<string, number> = {};
+  for (const p of getTilPosts()) {
+    const date = p.created.substring(0, 10);
+    counts[date] = (counts[date] ?? 0) + 1;
+  }
+  return counts;
+}
