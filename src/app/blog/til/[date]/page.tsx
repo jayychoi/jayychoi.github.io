@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PostListHeader from "@/components/blog/post-list-header";
+import PageHeader from "@/components/page-header";
 import PostList from "@/components/blog/post-list";
 import { getTilDates, getTilPostsByDate } from "@/lib/posts";
 
@@ -35,7 +35,7 @@ export default async function TilDatePage({
 
   return (
     <div>
-      <PostListHeader title={`TIL: ${date}`} />
+      <PageHeader title={`TIL: ${date}`} />
       <PostList posts={posts} />
     </div>
   );

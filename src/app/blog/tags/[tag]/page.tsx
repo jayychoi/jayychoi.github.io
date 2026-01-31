@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PostListHeader from "@/components/blog/post-list-header";
+import PageHeader from "@/components/page-header";
 import PostList from "@/components/blog/post-list";
 import { getAllTags, getPostsByTag } from "@/lib/posts";
 
@@ -35,7 +35,7 @@ export default async function TagPage({
 
   return (
     <div>
-      <PostListHeader title={`Tag: #${tag}`} />
+      <PageHeader title={`Tag: #${tag}`} />
       <PostList posts={posts} />
     </div>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PostListHeader from "@/components/blog/post-list-header";
+import PageHeader from "@/components/page-header";
 import PostList from "@/components/blog/post-list";
 import { getAllSeries, getPostsBySeries } from "@/lib/posts";
 
@@ -37,7 +37,7 @@ export default async function SeriesPage({
 
   return (
     <div>
-      <PostListHeader title={`Series: ${series}`} />
+      <PageHeader title={`Series: ${series}`} />
       <PostList posts={posts} />
     </div>
   );

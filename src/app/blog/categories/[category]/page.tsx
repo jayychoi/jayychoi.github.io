@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PostListHeader from "@/components/blog/post-list-header";
+import PageHeader from "@/components/page-header";
 import PostList from "@/components/blog/post-list";
 import { CATEGORY_LABELS } from "@/lib/categories";
 import { getAllCategories, getPostsByCategory } from "@/lib/posts";
@@ -37,7 +37,7 @@ export default async function CategoryPage({
 
   return (
     <div>
-      <PostListHeader title={CATEGORY_LABELS[category] ?? category} />
+      <PageHeader title={CATEGORY_LABELS[category] ?? category} />
       <PostList posts={posts} />
     </div>
   );
