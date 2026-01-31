@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { useSearch } from "./search-provider";
 import ThemeToggle from "./theme-toggle";
@@ -25,6 +26,11 @@ const ICONS = [
 export default function Header() {
   const pathname = usePathname();
   const { open: openSearch } = useSearch();
+  const [isMac, setIsMac] = useState(false);
+
+  useEffect(() => {
+    setIsMac(navigator.platform.startsWith("Mac"));
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 bg-white/60 dark:bg-black/60 border-b border-gray-200 dark:border-gray-800 backdrop-blur-sm font-display">
@@ -57,7 +63,7 @@ export default function Header() {
           >
             <span>검색</span>
             <kbd className="rounded bg-gray-100 px-1.5 py-0.5 text-xs dark:bg-gray-800">
-              ⌘K
+              {isMac ? "⌘K" : "Ctrl K"}
             </kbd>
           </button>
 
