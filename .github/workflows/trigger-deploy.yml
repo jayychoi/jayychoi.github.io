@@ -1,0 +1,15 @@
+name: Trigger deploy
+
+on:
+  push:
+
+permissions:
+  actions: write
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run deploy-pages.yml --ref main -R ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ github.token }}

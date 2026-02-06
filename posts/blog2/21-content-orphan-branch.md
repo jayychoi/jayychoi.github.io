@@ -122,21 +122,41 @@ import("velite").then((m) => m.build({ watch: isDev, clean: !isDev }));
 
 `content` 브랜치에 push하면 배포가 트리거되도록 설정했다. 이 경우 Next.js 소스 코드는 바뀌지 않았으므로, 캐시를 최대한 활용하고 싶었다.
 
-### 두 브랜치 모두 트리거
+### content 브랜치에서 배포 트리거
+
+처음에는 단순히 `branches: ["main", "content"]`로 두 브랜치 모두 트리거하려 했지만, 작동하지 않았다. GitHub Actions의 `push` 트리거는 **push된 브랜치에 워크플로우 파일이 있어야** 작동하기 때문이다. `content` 브랜치는 Markdown만 있고 `.github/workflows/`가 없으니 트리거되지 않는다.
+
+해결 방법은 `content` 브랜치에 작은 트리거 전용 워크플로우를 두는 것이다. `content` 브랜치에 push하면 이 워크플로우가 `gh workflow run`으로 `main`의 배포 워크플로우를 호출한다.
 
 ```yaml
+# content 브랜치: .github/workflows/trigger-deploy.yml
+name: Trigger deploy
+
 on:
   push:
-    branches: ["main", "content"]
+
+permissions:
+  actions: write
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run deploy-pages.yml --ref main -R ${{ github.repository }}
+        env:
+          GH_TOKEN: ${{ github.token }}
 ```
 
-`content` 브랜치 push로 트리거될 때 기본 checkout이 `content` 브랜치를 가져오는 문제가 있다. 코드는 항상 `main`에서 가져와야 하므로 `ref`를 명시한다.
+`GITHUB_TOKEN`은 `workflow_dispatch`와 `repository_dispatch` 이벤트를 트리거할 수 있으므로, 별도의 Personal Access Token 없이도 동작한다.
+
+`main`의 배포 워크플로우는 `push`와 `workflow_dispatch` 두 가지로 트리거된다.
 
 ```yaml
-- name: Checkout
-  uses: actions/checkout@v4
-  with:
-    ref: main
+# main 브랜치: .github/workflows/deploy-pages.yml
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
 ```
 
 ### Velite 캐시
