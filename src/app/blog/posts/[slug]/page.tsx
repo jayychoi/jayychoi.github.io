@@ -3,10 +3,10 @@ import { notFound } from "next/navigation";
 import Comments from "@/components/blog/comments";
 import MarkdownContent from "@/components/blog/markdown-content";
 import PostMetaBadges from "@/components/blog/post-meta-badges";
-import SeriesNav from "@/components/blog/series-nav";
+import PostNav from "@/components/blog/series-nav";
 import TOC from "@/components/blog/toc";
 import { siteConfig } from "@/lib/site";
-import { getAllPosts, getPostBySlug, getPostsBySeries } from "@/lib/posts";
+import { getAllPosts, getPostBySlug } from "@/lib/posts";
 
 export function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -45,7 +45,7 @@ export default async function PostPage({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const seriesPosts = post.series ? getPostsBySeries(post.series) : [];
+  const allPosts = getAllPosts();
 
   return (
     <div className="flex gap-8">
@@ -61,7 +61,6 @@ export default async function PostPage({
               tags={post.tags}
               series={post.series}
               order={post.order}
-              seriesCount={seriesPosts.length}
             />
             {post.metadata.readingTime && (
               <span>{post.metadata.readingTime}분 읽기</span>
@@ -71,9 +70,7 @@ export default async function PostPage({
 
         <MarkdownContent html={post.content} />
 
-        {seriesPosts.length > 0 && (
-          <SeriesNav currentSlug={post.slug} seriesPosts={seriesPosts} />
-        )}
+        <PostNav currentSlug={post.slug} allPosts={allPosts} />
 
         <Comments />
       </article>

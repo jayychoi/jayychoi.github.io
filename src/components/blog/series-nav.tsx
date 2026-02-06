@@ -1,21 +1,17 @@
 import Link from "next/link";
 import type { Post } from "#velite";
 
-interface SeriesNavProps {
+interface PostNavProps {
   currentSlug: string;
-  seriesPosts: Post[];
+  allPosts: Post[];
 }
 
-export default function SeriesNav({
-  currentSlug,
-  seriesPosts,
-}: SeriesNavProps) {
-  const currentIndex = seriesPosts.findIndex((p) => p.slug === currentSlug);
-  const prev = currentIndex > 0 ? seriesPosts[currentIndex - 1] : null;
-  const next =
-    currentIndex < seriesPosts.length - 1
-      ? seriesPosts[currentIndex + 1]
-      : null;
+export default function PostNav({ currentSlug, allPosts }: PostNavProps) {
+  const currentIndex = allPosts.findIndex((p) => p.slug === currentSlug);
+  // allPosts는 created 내림차순 → 다음(newer) = index - 1, 이전(older) = index + 1
+  const next = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+  const prev =
+    currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
 
   if (!prev && !next) return null;
 
@@ -24,28 +20,28 @@ export default function SeriesNav({
       {prev ? (
         <Link
           href={`/blog/posts/${prev.slug}`}
-          className="group flex flex-col items-start"
+          className="group flex flex-col items-start min-w-0 flex-1"
         >
-          <span className="text-xs text-muted-foreground">← 이전</span>
-          <span className="text-sm font-medium group-hover:text-primary transition-colors">
+          <span className="text-xs text-muted-foreground">← 이전 글</span>
+          <span className="text-sm font-medium group-hover:text-primary transition-colors truncate max-w-full">
             {prev.title}
           </span>
         </Link>
       ) : (
-        <div />
+        <div className="flex-1" />
       )}
       {next ? (
         <Link
           href={`/blog/posts/${next.slug}`}
-          className="group flex flex-col items-end text-right"
+          className="group flex flex-col items-end text-right min-w-0 flex-1"
         >
-          <span className="text-xs text-muted-foreground">다음 →</span>
-          <span className="text-sm font-medium group-hover:text-primary transition-colors">
+          <span className="text-xs text-muted-foreground">다음 글 →</span>
+          <span className="text-sm font-medium group-hover:text-primary transition-colors truncate max-w-full">
             {next.title}
           </span>
         </Link>
       ) : (
-        <div />
+        <div className="flex-1" />
       )}
     </nav>
   );

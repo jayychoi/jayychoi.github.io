@@ -22,7 +22,7 @@ const TABS: { key: TabType; label: string }[] = [
   { key: "categories", label: "카테고리" },
   { key: "til", label: "TIL" },
   { key: "tags", label: "태그" },
-  { key: "series", label: "시리즈" },
+  // { key: "series", label: "시리즈" },
 ];
 
 function groupTilDates(tilDates: string[]) {
