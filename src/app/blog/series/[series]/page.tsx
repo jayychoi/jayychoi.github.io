@@ -36,7 +36,7 @@ export default async function SeriesPage({
   const posts = getPostsBySeries(series);
 
   return (
-    <div>
+    <div className="max-w-3xl px-6 lg:px-10">
       <PageHeader title={`Series: ${series}`} />
       <PostList posts={posts} />
     </div>

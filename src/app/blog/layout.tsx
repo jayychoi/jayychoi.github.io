@@ -33,9 +33,9 @@ export default function BlogLayout({
   };
 
   return (
-    <div className="flex gap-8 py-8">
-      <div className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-24">
+    <div className="flex py-10">
+      <div className="hidden lg:block w-[18rem] shrink-0 pr-8">
+        <div className="sticky top-28">
           <Sidebar {...sidebarProps} />
         </div>
       </div>

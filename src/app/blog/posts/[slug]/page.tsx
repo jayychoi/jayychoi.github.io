@@ -48,8 +48,8 @@ export default async function PostPage({
   const allPosts = getAllPosts();
 
   return (
-    <div className="flex gap-8">
-      <article className="min-w-0 flex-1">
+    <div className="xl:grid xl:grid-cols-[minmax(0,48rem)_16rem] xl:gap-10">
+      <article className="min-w-0 px-6 lg:px-10">
         <header className="mb-8">
           <h1 className="text-3xl font-bold">{post.title}</h1>
           <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
@@ -75,7 +75,7 @@ export default async function PostPage({
         <Comments />
       </article>
 
-      <div className="hidden xl:block w-56 shrink-0">
+      <div className="hidden xl:block ml-4">
         <TOC items={post.toc} />
       </div>
     </div>

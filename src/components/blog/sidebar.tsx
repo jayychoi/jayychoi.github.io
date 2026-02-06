@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import TilCalendar from "./til-calendar";
 
 type TabType = "categories" | "til" | "tags" | "series";
@@ -38,7 +40,8 @@ function groupTilDates(tilDates: string[]) {
 function TilDateList({
   tilDates,
   tilDateCounts,
-}: { tilDates: string[]; tilDateCounts: Record<string, number> }) {
+  pathname,
+}: { tilDates: string[]; tilDateCounts: Record<string, number>; pathname: string }) {
   const groups = groupTilDates(tilDates);
   const years = Object.keys(groups).sort().reverse();
 
@@ -81,7 +84,7 @@ function TilDateList({
             <button
               type="button"
               onClick={() => toggleYear(y)}
-              className="flex w-full items-center gap-1 px-3 py-1.5 text-sm font-bold text-foreground hover:bg-accent rounded-md transition-colors"
+              className="flex w-full items-center gap-1 px-3 py-1.5 text-sm font-bold text-gray-900 dark:text-gray-200 hover:bg-accent rounded-md transition-colors"
             >
               {yearOpen ? (
                 <ChevronDown className="h-3.5 w-3.5" />
@@ -102,7 +105,7 @@ function TilDateList({
                     <button
                       type="button"
                       onClick={() => toggleMonth(monthKey)}
-                      className="flex w-full items-center gap-1 pl-7 pr-3 py-1.5 text-sm font-medium text-foreground hover:bg-accent rounded-md transition-colors"
+                      className="flex w-full items-center gap-1 pl-7 pr-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-400 hover:bg-accent rounded-md transition-colors"
                     >
                       {monthOpen ? (
                         <ChevronDown className="h-3 w-3" />
@@ -113,18 +116,26 @@ function TilDateList({
                     </button>
 
                     {monthOpen &&
-                      dates.map((date) => (
-                        <Link
-                          key={date}
-                          href={`/blog/til/${date}`}
-                          className="flex items-center justify-between rounded-md pl-12 pr-3 py-1.5 text-sm hover:bg-accent transition-colors"
-                        >
-                          <span>{date}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {tilDateCounts[date]}
-                          </span>
-                        </Link>
-                      ))}
+                      dates.map((date) => {
+                        const href = `/blog/til/${date}`;
+                        const isActive = pathname === href;
+                        return (
+                          <Link
+                            key={date}
+                            href={href}
+                            className={`flex items-center justify-between rounded-md pl-12 pr-3 py-1.5 text-sm transition-colors ${
+                              isActive
+                                ? "bg-accent-color/10 text-accent-color font-semibold"
+                                : "text-gray-600 dark:text-gray-400 hover:bg-accent"
+                            }`}
+                          >
+                            <span>{date}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {tilDateCounts[date]}
+                            </span>
+                          </Link>
+                        );
+                      })}
                   </div>
                 );
               })}
@@ -143,6 +154,7 @@ export default function Sidebar({
   tilDateCounts,
 }: SidebarProps) {
   const [activeTab, setActiveTab] = useState<TabType>("categories");
+  const pathname = usePathname();
 
   return (
     <aside className="w-full">
@@ -154,7 +166,7 @@ export default function Sidebar({
             onClick={() => setActiveTab(tab.key)}
             className={`flex-1 py-2 text-sm font-medium transition-colors ${
               activeTab === tab.key
-                ? "border-b-2 border-primary text-foreground"
+                ? "border-b-2 border-accent-color text-accent-color"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -163,25 +175,33 @@ export default function Sidebar({
         ))}
       </div>
 
-      <nav className="mt-4 space-y-4">
+      <nav className="mt-4 space-y-6">
         {activeTab === "categories" &&
           categoryGroups.map((group) => (
             <div key={group.label}>
-              <p className="px-3 pb-1 text-sm font-bold text-foreground">
+              <p className="px-3 pb-1 text-sm font-bold text-gray-900 dark:text-gray-200">
                 {group.label}
               </p>
-              {group.items.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/blog/categories/${cat.id}`}
-                  className="flex items-center justify-between rounded-md px-3 py-2 text-sm hover:bg-accent transition-colors"
-                >
-                  <span>{cat.label}</span>
-                  <span className="text-muted-foreground text-xs">
-                    {cat.count}
-                  </span>
-                </Link>
-              ))}
+              {group.items.map((cat) => {
+                const href = `/blog/categories/${cat.id}`;
+                const isActive = pathname === href;
+                return (
+                  <Link
+                    key={cat.id}
+                    href={href}
+                    className={`flex items-center justify-between rounded-md px-3 py-1.5 text-sm transition-colors ${
+                      isActive
+                        ? "bg-accent-color/10 text-accent-color font-semibold"
+                        : "text-gray-600 dark:text-gray-400 hover:bg-accent hover:text-gray-900 dark:hover:text-gray-300"
+                    }`}
+                  >
+                    <span>{cat.label}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {cat.count}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           ))}
 
@@ -189,7 +209,7 @@ export default function Sidebar({
           <>
             <TilCalendar tilDateCounts={tilDateCounts} />
             {tilDates.length > 0 && (
-              <TilDateList tilDates={tilDates} tilDateCounts={tilDateCounts} />
+              <TilDateList tilDates={tilDates} tilDateCounts={tilDateCounts} pathname={pathname} />
             )}
           </>
         )}
@@ -201,18 +221,29 @@ export default function Sidebar({
             </p>
           ) : (
             <div className="flex flex-wrap gap-2 px-3 py-2">
-              {tags.map((tag) => (
-                <Link
-                  key={tag.name}
-                  href={`/blog/tags/${tag.name}`}
-                  className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-1 text-sm hover:bg-accent transition-colors"
-                >
-                  <span>#{tag.name}</span>
-                  <span className="text-muted-foreground text-xs">
-                    {tag.count}
-                  </span>
-                </Link>
-              ))}
+              {tags.map((tag) => {
+                const href = `/blog/tags/${tag.name}`;
+                const isActive = pathname === href;
+                return (
+                  <Badge
+                    key={tag.name}
+                    variant={isActive ? "default" : "secondary"}
+                    asChild
+                    className={
+                      isActive
+                        ? "bg-accent-color text-white"
+                        : "text-gray-600 dark:text-gray-400"
+                    }
+                  >
+                    <Link href={href}>
+                      #{tag.name}
+                      <span className={isActive ? "text-white/70" : "text-muted-foreground"}>
+                        {tag.count}
+                      </span>
+                    </Link>
+                  </Badge>
+                );
+              })}
             </div>
           ))}
 
@@ -222,16 +253,24 @@ export default function Sidebar({
               시리즈가 없습니다.
             </p>
           ) : (
-            series.map((s) => (
-              <Link
-                key={s.name}
-                href={`/blog/series/${s.name}`}
-                className="flex items-center justify-between rounded-md px-3 py-2 text-sm hover:bg-accent transition-colors"
-              >
-                <span>{s.name}</span>
-                <span className="text-muted-foreground text-xs">{s.count}</span>
-              </Link>
-            ))
+            series.map((s) => {
+              const href = `/blog/series/${s.name}`;
+              const isActive = pathname === href;
+              return (
+                <Link
+                  key={s.name}
+                  href={href}
+                  className={`flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors ${
+                    isActive
+                      ? "bg-accent-color/10 text-accent-color font-semibold"
+                      : "text-gray-600 dark:text-gray-400 hover:bg-accent hover:text-gray-900 dark:hover:text-gray-300"
+                  }`}
+                >
+                  <span>{s.name}</span>
+                  <span className="text-muted-foreground text-xs">{s.count}</span>
+                </Link>
+              );
+            })
           ))}
       </nav>
     </aside>

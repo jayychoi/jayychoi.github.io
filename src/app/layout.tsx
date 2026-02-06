@@ -48,7 +48,7 @@ export default function RootLayout({
         <ThemeProvider>
           <SearchProvider items={getSearchItems()}>
             <Header />
-            <main className="mx-auto max-w-7xl px-6">{children}</main>
+            <main className="mx-auto max-w-8xl px-4 lg:px-8">{children}</main>
           </SearchProvider>
         </ThemeProvider>
       </body>

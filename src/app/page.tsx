@@ -10,7 +10,7 @@ export default function Home() {
   const recentPosts = getAllPosts().slice(0, 5);
 
   return (
-    <div className="mx-auto max-w-3xl py-8">
+    <div className="mx-auto max-w-4xl py-10">
       <ActivityHeatmap dateCounts={dateCounts} />
 
       <hr className="my-8" />

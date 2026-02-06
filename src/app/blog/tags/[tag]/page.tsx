@@ -34,7 +34,7 @@ export default async function TagPage({
   const posts = getPostsByTag(tag);
 
   return (
-    <div>
+    <div className="max-w-3xl px-6 lg:px-10">
       <PageHeader title={`Tag: #${tag}`} />
       <PostList posts={posts} />
     </div>

@@ -34,7 +34,7 @@ export default async function TilDatePage({
   const posts = getTilPostsByDate(date);
 
   return (
-    <div>
+    <div className="max-w-3xl px-6 lg:px-10">
       <PageHeader title={`TIL: ${date}`} />
       <PostList posts={posts} />
     </div>

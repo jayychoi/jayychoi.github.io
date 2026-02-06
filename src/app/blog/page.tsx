@@ -16,7 +16,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <div>
+    <div className="max-w-3xl px-6 lg:px-10">
       <PageHeader title="전체 글" />
       <PostList posts={posts} />
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { TextAlignStart } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface TocItem {
@@ -35,19 +36,23 @@ export default function TOC({ items }: { items: TocItem[] }) {
 
   if (items.length === 0) return null;
 
-  function renderItems(items: TocItem[], depth = 0) {
+  function renderItems(tocItems: TocItem[], depth = 0) {
     return (
-      <ul className={depth > 0 ? "ml-4 mt-1" : "space-y-1"}>
-        {items.map((item) => {
+      <ul className={depth > 0 ? "mt-0.5 space-y-0.5" : "space-y-0.5"}>
+        {tocItems.map((item) => {
           const id = item.url.replace("#", "");
+          const isActive = activeId === id;
+
           return (
             <li key={item.url}>
               <a
                 href={item.url}
-                className={`block py-1 text-sm transition-colors ${
-                  activeId === id
-                    ? "text-foreground font-medium"
-                    : "text-muted-foreground hover:text-foreground"
+                className={`block break-words py-0.5 transition-colors ${
+                  depth > 0 ? "pl-4" : ""
+                } ${
+                  isActive
+                    ? "text-accent-color font-bold"
+                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300"
                 }`}
               >
                 {item.title}
@@ -61,8 +66,11 @@ export default function TOC({ items }: { items: TocItem[] }) {
   }
 
   return (
-    <nav className="sticky top-24">
-      <h3 className="mb-3 text-sm font-semibold">목차</h3>
+    <nav className="sticky top-28 text-sm leading-6">
+      <h3 className="mb-3 font-medium font-display text-gray-700 dark:text-gray-300 flex items-center gap-2">
+        <TextAlignStart className="h-3.5 w-3.5" />
+        On this page
+      </h3>
       {renderItems(items)}
     </nav>
   );

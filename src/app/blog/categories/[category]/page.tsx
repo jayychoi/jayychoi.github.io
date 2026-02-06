@@ -36,7 +36,7 @@ export default async function CategoryPage({
   const posts = getPostsByCategory(category);
 
   return (
-    <div>
+    <div className="max-w-3xl px-6 lg:px-10">
       <PageHeader title={CATEGORY_LABELS[category] ?? category} />
       <PostList posts={posts} />
     </div>
