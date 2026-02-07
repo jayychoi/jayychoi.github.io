@@ -12,10 +12,10 @@ tags: []
 tmux는 단순한 터미널 멀티플렉서처럼 보이지만, 내부적으로는 **서버-클라이언트 구조**로 동작한다.
 
 ```
-터미널 (클라이언트) ──소켓──▶ tmux 서버 ─┬─ session A ─┬─ window 1 ─┬─ pane 1
-                                         │             │             └─ pane 2
-                                         │             └─ window 2 ─── pane 1
-                                         └─ session B ─── window 1 ─── pane 1
+terminal ──socket──▶ tmux server ─┬─ session A ─┬─ window 1 ─┬─ pane 1
+(client)                          │             │            └─ pane 2
+                                  │             └─ window 2 ─── pane 1
+                                  └─ session B ─── window 1 ─── pane 1
 ```
 
 - **서버**: 모든 세션, 윈도우, 팬을 관리하는 백그라운드 프로세스이다. 세션 안에서 실행되는 모든 프로그램의 생명주기를 서버가 관리한다.
