@@ -11,7 +11,7 @@ tags: []
 
 tmux는 단순한 터미널 멀티플렉서처럼 보이지만, 내부적으로는 **서버-클라이언트 구조**로 동작한다.
 
-```
+```txt
 terminal ──socket──▶ tmux server ─┬─ session A ─┬─ window 1 ─┬─ pane 1
 (client)                          │             │            └─ pane 2
                                   │             └─ window 2 ─── pane 1
