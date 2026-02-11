@@ -2,10 +2,10 @@
 
 import {
   createContext,
+  type ReactNode,
   useCallback,
   useContext,
   useState,
-  type ReactNode,
 } from "react";
 import type { SearchItem } from "@/lib/search";
 import SearchDialog from "./search-dialog";

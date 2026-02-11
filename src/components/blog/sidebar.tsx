@@ -1,9 +1,9 @@
 "use client";
 
+import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import TilCalendar from "./til-calendar";
 
@@ -41,7 +41,11 @@ function TilDateList({
   tilDates,
   tilDateCounts,
   pathname,
-}: { tilDates: string[]; tilDateCounts: Record<string, number>; pathname: string }) {
+}: {
+  tilDates: string[];
+  tilDateCounts: Record<string, number>;
+  pathname: string;
+}) {
   const groups = groupTilDates(tilDates);
   const years = Object.keys(groups).sort().reverse();
 
@@ -52,12 +56,10 @@ function TilDateList({
   const [openYears, setOpenYears] = useState<Set<string>>(
     () => new Set(groups[currentYear] ? [currentYear] : []),
   );
-  const [openMonths, setOpenMonths] = useState<Set<string>>(
-    () => {
-      const key = `${currentYear}-${currentMonth}`;
-      return groups[currentYear]?.[currentMonth] ? new Set([key]) : new Set();
-    },
-  );
+  const [openMonths, setOpenMonths] = useState<Set<string>>(() => {
+    const key = `${currentYear}-${currentMonth}`;
+    return groups[currentYear]?.[currentMonth] ? new Set([key]) : new Set();
+  });
 
   const toggleYear = (y: string) =>
     setOpenYears((prev) => {
@@ -209,7 +211,11 @@ export default function Sidebar({
           <>
             <TilCalendar tilDateCounts={tilDateCounts} />
             {tilDates.length > 0 && (
-              <TilDateList tilDates={tilDates} tilDateCounts={tilDateCounts} pathname={pathname} />
+              <TilDateList
+                tilDates={tilDates}
+                tilDateCounts={tilDateCounts}
+                pathname={pathname}
+              />
             )}
           </>
         )}
@@ -237,7 +243,11 @@ export default function Sidebar({
                   >
                     <Link href={href}>
                       #{tag.name}
-                      <span className={isActive ? "text-white/70" : "text-muted-foreground"}>
+                      <span
+                        className={
+                          isActive ? "text-white/70" : "text-muted-foreground"
+                        }
+                      >
                         {tag.count}
                       </span>
                     </Link>
@@ -267,7 +277,9 @@ export default function Sidebar({
                   }`}
                 >
                   <span>{s.name}</span>
-                  <span className="text-muted-foreground text-xs">{s.count}</span>
+                  <span className="text-muted-foreground text-xs">
+                    {s.count}
+                  </span>
                 </Link>
               );
             })

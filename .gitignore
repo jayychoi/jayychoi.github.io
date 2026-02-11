@@ -46,4 +46,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# 빌드 시 자동 생성되는 임시 콘텐츠 디렉토리
+.content-build/
+
+# drizzle 마이그레이션
+/drizzle
+
 .claude

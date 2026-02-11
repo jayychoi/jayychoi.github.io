@@ -11,7 +11,9 @@ export interface SearchItem {
 }
 
 function stripHtml(html: string): string {
-  return decodeHtmlEntities(html.replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
+  return decodeHtmlEntities(html.replace(/<[^>]*>/g, " "))
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function getSearchItems(): SearchItem[] {

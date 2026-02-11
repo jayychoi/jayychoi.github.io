@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
 import { ExternalLink, Github } from "lucide-react";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownContent from "@/components/blog/markdown-content";
 import PageHeader from "@/components/page-header";
@@ -58,14 +59,27 @@ export default async function ProjectPage({
   return (
     <article className="mx-auto max-w-3xl py-8">
       <header className="mb-8">
-        <PageHeader title={project.title} />
+        <div className="flex items-start justify-between gap-4">
+          <PageHeader title={project.title} />
+          {process.env.NODE_ENV === "development" && (
+            <Link
+              href={`/projects/${project.slug}/edit`}
+              className="shrink-0 rounded-md border px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              수정
+            </Link>
+          )}
+        </div>
         <p className="mt-2 text-muted-foreground">{project.description}</p>
 
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
           <span
             className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${(STATUS_CONFIG[project.status] ?? STATUS_CONFIG["in-progress"]).className}`}
           >
-            {(STATUS_CONFIG[project.status] ?? STATUS_CONFIG["in-progress"]).label}
+            {
+              (STATUS_CONFIG[project.status] ?? STATUS_CONFIG["in-progress"])
+                .label
+            }
           </span>
           <span>
             {new Date(project.startDate).toLocaleDateString("ko-KR")}
@@ -102,11 +116,7 @@ export default async function ProjectPage({
             )}
             {project.url && (
               <Button variant="outline" size="sm" asChild>
-                <a
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={project.url} target="_blank" rel="noopener noreferrer">
                   <ExternalLink />
                   배포 사이트
                 </a>

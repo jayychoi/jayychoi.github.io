@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import PageHeader from "@/components/page-header";
+import Link from "next/link";
 import PostList from "@/components/blog/post-list";
+import PageHeader from "@/components/page-header";
 import { getTilDates, getTilPostsByDate } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -35,7 +36,17 @@ export default async function TilDatePage({
 
   return (
     <div className="max-w-3xl px-6 lg:px-10">
-      <PageHeader title={`TIL: ${date}`} />
+      <div className="flex max-w-prose items-center justify-between">
+        <PageHeader title={`TIL: ${date}`} />
+        {process.env.NODE_ENV === "development" && (
+          <Link
+            href="/blog/posts/new"
+            className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
+          >
+            새 글 작성
+          </Link>
+        )}
+      </div>
       <PostList posts={posts} />
     </div>
   );

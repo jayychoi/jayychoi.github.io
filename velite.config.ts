@@ -4,7 +4,7 @@ import rehypeSlug from "rehype-slug";
 import { defineConfig, s } from "velite";
 
 export default defineConfig({
-  root: "content",
+  root: ".content-build",
   output: {
     data: ".velite",
     assets: "public/static",
@@ -82,7 +82,7 @@ export default defineConfig({
         updated: s.isodate().optional(),
         description: s.string().optional(),
         category: s.string(),
-        tags: s.array(s.string()),
+        tags: s.array(s.string()).optional(),
         type: s.array(s.enum(["til", "series"])).optional(),
         series: s.string().optional(),
         order: s.number().optional(),

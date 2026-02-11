@@ -1,9 +1,9 @@
 "use client";
 
+import { Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Search } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import { useSearch } from "./search-provider";
 import ThemeToggle from "./theme-toggle";
@@ -72,7 +72,13 @@ export default function Header() {
           </button>
 
           {ICONS.map(({ href, icon: Icon, label }) => (
-            <Button variant="ghost" size="icon" key={href} asChild className="hover:text-accent-color">
+            <Button
+              variant="ghost"
+              size="icon"
+              key={href}
+              asChild
+              className="hover:text-accent-color"
+            >
               <Link
                 href={href}
                 target="_blank"

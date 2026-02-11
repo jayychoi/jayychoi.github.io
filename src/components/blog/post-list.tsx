@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import type { Post } from "#velite";
-import { extractPlainText } from "@/lib/html";
-import PostCard from "./post-card";
 import {
   Pagination,
   PaginationContent,
@@ -13,6 +11,8 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { extractPlainText } from "@/lib/html";
+import PostCard from "./post-card";
 
 const POSTS_PER_PAGE = 10;
 

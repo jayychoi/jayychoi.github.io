@@ -152,15 +152,17 @@ function buildMonthColspans(weeks: Cell[][]) {
   const shown = labels.slice(0, maxLabels);
 
   for (let i = 0; i < shown.length; i++) {
-    const nextCol =
-      i + 1 < shown.length ? shown[i + 1].col : weeks.length;
+    const nextCol = i + 1 < shown.length ? shown[i + 1].col : weeks.length;
     result.push({ label: shown[i].label, colspan: nextCol - shown[i].col });
   }
 
   return result;
 }
 
-function getAvailableYears(dateCounts: Record<string, number>, now: Date): number[] {
+function getAvailableYears(
+  dateCounts: Record<string, number>,
+  now: Date,
+): number[] {
   const years = new Set<number>();
   years.add(now.getFullYear());
   for (const date of Object.keys(dateCounts)) {
@@ -263,7 +265,10 @@ export default function ActivityHeatmap({ dateCounts }: ActivityHeatmapProps) {
                           className={`size-3 rounded-xs ${getIntensityClass(cell.count)}`}
                         />
                       </TooltipTrigger>
-                      <TooltipContent side="top" className="pointer-events-none">
+                      <TooltipContent
+                        side="top"
+                        className="pointer-events-none"
+                      >
                         {tooltipText(cell.date, cell.count)}
                       </TooltipContent>
                     </Tooltip>
