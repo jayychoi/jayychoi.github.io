@@ -23,7 +23,7 @@ jobs:
         with:
           ref: main
 
-      - name: Checkout content
+      - name: Checkout content (blog.db)
         uses: actions/checkout@v4
         with:
           ref: content
@@ -51,24 +51,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-
 
-      - name: Restore Velite cache
-        uses: actions/cache@v4
-        id: velite-cache
-        with:
-          path: .velite
-          key: ${{ runner.os }}-velite-${{ hashFiles('velite.config.ts', 'content/**') }}
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build content
-        if: steps.velite-cache.outputs.cache-hit != 'true'
-        run: pnpm content
-
       - name: Build
         run: pnpm build
-        env:
-          VELITE_STARTED: "1"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
