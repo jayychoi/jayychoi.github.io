@@ -24,6 +24,13 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
     ],
   },
   {
+    label: "Linux",
+    categories: [
+      { id: "linux", label: "Linux" },
+      { id: "arch-linux", label: "Arch Linux" },
+    ],
+  },
+  {
     label: "Web",
     categories: [
       { id: "spring", label: "Spring" },
@@ -35,13 +42,6 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
     categories: [
       { id: "docker", label: "Docker" },
       { id: "github-actions", label: "GitHub Actions" },
-    ],
-  },
-  {
-    label: "Linux",
-    categories: [
-      { id: "arch-linux", label: "Arch Linux" },
-      { id: "linux", label: "Linux" },
     ],
   },
   {
