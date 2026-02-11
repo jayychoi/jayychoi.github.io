@@ -4,7 +4,7 @@ import rehypeSlug from "rehype-slug";
 import { defineConfig, s } from "velite";
 
 export default defineConfig({
-  root: "content",
+  root: ".content-build",
   output: {
     data: ".velite",
     assets: "public/static",
