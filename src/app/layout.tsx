@@ -3,6 +3,7 @@ import { Quicksand } from "next/font/google";
 import localFont from "next/font/local";
 import Header from "@/components/header";
 import SearchProvider from "@/components/search-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 import { getSearchItems } from "@/lib/search";
 import { siteConfig } from "@/lib/site";
@@ -44,11 +45,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className={`${pretendard.variable} ${quicksand.variable} antialiased`}>
+      <body
+        className={`${pretendard.variable} ${quicksand.variable} antialiased`}
+      >
         <ThemeProvider>
           <SearchProvider items={getSearchItems()}>
             <Header />
             <main className="mx-auto max-w-8xl px-4 lg:px-8">{children}</main>
+            <Toaster />
           </SearchProvider>
         </ThemeProvider>
       </body>
