@@ -36,9 +36,13 @@ function buildPostFrontmatter(post: typeof schema.posts.$inferSelect): string {
   lines.push(`category: ${toYamlValue(post.category)}`);
 
   const tags = post.tags as string[];
-  lines.push("tags:");
-  for (const tag of tags) {
-    lines.push(`  - ${tag}`);
+  if (tags.length > 0) {
+    lines.push("tags:");
+    for (const tag of tags) {
+      lines.push(`  - ${tag}`);
+    }
+  } else {
+    lines.push("tags: []");
   }
 
   const type = post.type as string[] | null;
