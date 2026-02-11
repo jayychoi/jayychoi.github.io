@@ -12,7 +12,7 @@
 
 ## 데이터 관리
 
-MDX 단일 파일로 관리. 콘텐츠 서브모듈 내 `about.mdx`에 저장.
+SQLite 데이터베이스(`content/blog.db`)의 `about` 테이블에 저장. 개발 모드의 어드민 UI(`/about/edit`)를 통해 수정한다.
 
 ## 섹션 구성
 

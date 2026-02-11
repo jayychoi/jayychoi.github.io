@@ -13,9 +13,9 @@
 
 ## 데이터 관리
 
-MDX 파일로 관리. 콘텐츠 서브모듈 내 `projects/` 디렉토리에 저장.
+SQLite 데이터베이스(`content/blog.db`)에 저장. 개발 모드의 어드민 UI(`/projects/new`, `/projects/[slug]/edit`)를 통해 작성/수정한다.
 
-### Frontmatter 스키마
+### 데이터 스키마
 
 | 필드 | 필수 | 설명 |
 |------|------|------|
@@ -23,7 +23,7 @@ MDX 파일로 관리. 콘텐츠 서브모듈 내 `projects/` 디렉토리에 저
 | slug | O | 고유 식별자 (URL에 사용) |
 | description | O | 프로젝트 요약 |
 | techs | O | 사용 기술 스택 배열 |
-| status | O | 진행 상태 (`in-progress` / `completed`) |
+| status | O | 진행 상태 (`in-progress` / `active` / `archived`) |
 | startDate | O | 시작일 |
 | endDate | | 종료일 (진행 중이면 생략) |
 | github | | GitHub 레포 URL |
@@ -49,7 +49,7 @@ github: "https://github.com/jayychoi/jayychoi.github.io"
 
 ## 상세 페이지
 
-- MDX 본문으로 프로젝트 상세 설명
+- Markdown 본문으로 프로젝트 상세 설명
 - 프로젝트 개요, 기술적 도전, 회고 등 자유롭게 작성
 
 ## 논의 필요 사항
