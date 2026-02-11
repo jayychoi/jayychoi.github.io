@@ -44,7 +44,17 @@ export default function ProjectsPage() {
 
   return (
     <div className="mx-auto max-w-3xl py-8">
-      <PageHeader title="Projects" className="mb-8" />
+      <div className="mb-8 flex items-center justify-between">
+        <PageHeader title="Projects" />
+        {process.env.NODE_ENV === "development" && (
+          <Link
+            href="/projects/new"
+            className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
+          >
+            새 프로젝트
+          </Link>
+        )}
+      </div>
       {projects.length === 0 ? (
         <p className="text-sm text-muted-foreground">프로젝트가 없습니다.</p>
       ) : (

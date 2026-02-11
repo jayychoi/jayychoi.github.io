@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import PageHeader from "@/components/page-header";
+import Link from "next/link";
 import PostList from "@/components/blog/post-list";
+import PageHeader from "@/components/page-header";
 import { getAllSeries, getPostsBySeries } from "@/lib/posts";
 
 export function generateStaticParams() {
@@ -37,7 +38,17 @@ export default async function SeriesPage({
 
   return (
     <div className="max-w-3xl px-6 lg:px-10">
-      <PageHeader title={`Series: ${series}`} />
+      <div className="flex max-w-prose items-center justify-between">
+        <PageHeader title={`Series: ${series}`} />
+        {process.env.NODE_ENV === "development" && (
+          <Link
+            href="/blog/posts/new"
+            className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground"
+          >
+            새 글 작성
+          </Link>
+        )}
+      </div>
       <PostList posts={posts} />
     </div>
   );
