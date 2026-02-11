@@ -1,13 +1,15 @@
 ---
 title: 개인 블로그
 slug: personal-blog
-description: Next.js 기반 정적 블로그. Velite로 Markdown 콘텐츠를 관리하고, Tailwind CSS로 스타일링한 개인 기술 블로그입니다.
+description: Next.js 기반 정적 블로그. SQLite + 개발 전용 어드민 UI로 콘텐츠를 관리하고, Tailwind CSS로 스타일링한 개인 기술 블로그입니다.
 techs:
   - Next.js
   - TypeScript
   - React
   - Tailwind CSS
   - Shadcn/ui
+  - SQLite
+  - Drizzle ORM
   - Velite
   - Shiki
   - Biome
@@ -21,7 +23,7 @@ url: https://jayychoi.github.io
 
 ## 어떻게 만들었나요?
 
-Next.js 16의 App Router와 정적 빌드(`output: "export"`)를 사용하여, 서버 없이 GitHub Pages에서 동작합니다. 글은 Markdown으로 작성하고, Velite가 JSON으로 변환하여 Next.js 빌드 시 사용합니다. 별도의 데이터베이스나 CMS 없이 Markdown 파일만으로 모든 콘텐츠를 관리할 수 있습니다.
+Next.js 16의 App Router와 정적 빌드(`output: "export"`)를 사용하여, 서버 없이 GitHub Pages에서 동작합니다. 콘텐츠는 SQLite 데이터베이스에 저장하고, 개발 모드에서만 접근 가능한 어드민 UI로 글을 작성·수정합니다. 빌드 시 SQLite에서 Markdown으로 내보낸 뒤, Velite가 JSON으로 변환하여 정적 페이지를 생성합니다.
 
 스타일링은 Tailwind CSS 4와 Shadcn/ui를 사용했고, 코드 블록은 Shiki로 하이라이팅합니다. 라이트/다크 테마를 모두 지원하며, 코드 블록도 테마에 맞게 자동으로 색상이 전환됩니다.
 
@@ -37,7 +39,9 @@ Next.js 16의 App Router와 정적 빌드(`output: "export"`)를 사용하여, �
 
 ## 콘텐츠 관리 방식
 
-블로그 코드와 콘텐츠를 같은 리포지토리에서 관리하면서도 완전히 분리한 것이 특징입니다. Git의 고아 브랜치(orphan branch)를 활용하여, `main` 브랜치에는 앱 코드를, `content` 브랜치에는 Markdown 게시글을 두었습니다. 로컬에서는 `git worktree`로 두 브랜치를 동시에 작업할 수 있습니다. `main`에 push하면 직접 배포가 실행되고, `content`에 push하면 트리거 워크플로우가 `main`의 배포를 호출하여 자동으로 빌드하고 배포합니다.
+블로그 코드와 콘텐츠를 같은 리포지토리에서 관리하면서도 완전히 분리한 것이 특징입니다. Git의 고아 브랜치(orphan branch)를 활용하여, `main` 브랜치에는 앱 코드를, `content` 브랜치에는 SQLite 데이터베이스(`blog.db`)를 두었습니다. 로컬에서는 `git worktree`로 두 브랜치를 동시에 작업할 수 있습니다.
+
+콘텐츠 관리는 개발 서버에서만 접근 가능한 어드민 UI를 통해 이루어집니다. 어드민 페이지와 API 라우트는 `.dev.tsx`/`.dev.ts` 파일 확장자를 사용하여, 프로덕션 빌드에서는 자동으로 제외됩니다. `main`에 push하면 직접 배포가 실행되고, `content`에 push하면 트리거 워크플로우가 `main`의 배포를 호출하여 자동으로 빌드하고 배포합니다.
 
 ## 배포
 
