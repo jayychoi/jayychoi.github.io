@@ -10,7 +10,7 @@ interface PostCardProps {
   description?: string;
   created: string;
   category: string;
-  tags: string[];
+  tags?: string[];
   series?: string;
   order?: number;
 }

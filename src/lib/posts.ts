@@ -19,7 +19,7 @@ export function getPostsByCategory(category: string): Post[] {
 
 // 태그 필터
 export function getPostsByTag(tag: string): Post[] {
-  return getAllPosts().filter((p) => p.tags.includes(tag));
+  return getAllPosts().filter((p) => p.tags?.includes(tag));
 }
 
 // 시리즈 필터 (order 순 정렬)
@@ -54,7 +54,7 @@ export function getAllCategories(): { name: string; count: number }[] {
 export function getAllTags(): { name: string; count: number }[] {
   const map = new Map<string, number>();
   for (const p of posts) {
-    for (const tag of p.tags) {
+    for (const tag of p.tags ?? []) {
       map.set(tag, (map.get(tag) ?? 0) + 1);
     }
   }

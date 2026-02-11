@@ -2,7 +2,7 @@ import { CategoryBadge, SeriesBadge, TagBadge } from "./badges";
 
 interface PostMetaBadgesProps {
   category: string;
-  tags: string[];
+  tags?: string[];
   series?: string;
   order?: number;
   seriesCount?: number;
@@ -28,7 +28,7 @@ export default function PostMetaBadges({
           className={linkClassName}
         />
       )}
-      {tags.map((tag) => (
+      {tags?.map((tag) => (
         <TagBadge key={tag} tag={tag} className={linkClassName} />
       ))}
     </>

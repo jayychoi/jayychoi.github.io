@@ -6,7 +6,7 @@ export interface SearchItem {
   title: string;
   description: string;
   category: string;
-  tags: string[];
+  tags?: string[];
   content: string;
 }
 
