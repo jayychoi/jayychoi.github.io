@@ -31,10 +31,20 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
     ],
   },
   {
-    label: "Web",
+    label: "Spring",
     categories: [
-      { id: "spring", label: "Spring" },
-      { id: "blog2", label: "블로그 만들기 v2" },
+      { id: "spring-boot", label: "Spring Boot" },
+      { id: "spring-framework", label: "Spring Framework" },
+      { id: "spring-data", label: "Spring Data" },
+    ]
+  },
+  {
+    label: "Database",
+    categories: [
+      { id: "mysql", label: "MySQL" },
+      { id: "mongodb", label: "MongoDB" },
+      { id: "postgresql", label: "PostgreSQL" },
+      { id: "jpa", label: "JPA" },
     ],
   },
   {
@@ -54,7 +64,12 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
   },
   {
     label: "Etc",
-    categories: [{ id: "etc", label: "기타" }],
+    categories: [
+      { id: "blog2", label: "블로그 만들기 v2" },
+      { id: "retrospective", label: "회고" },
+      { id: "opensource", label: "오픈소스" },
+      { id: "etc", label: "기타" },
+    ],
   },
 ];
 
