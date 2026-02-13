@@ -1,6 +1,6 @@
 ---
-title: 개인 블로그
-slug: personal-blog
+title: 개인 웹사이트
+slug: personal-website
 description: Next.js 기반 정적 블로그. SQLite + 개발 전용 어드민 UI로 콘텐츠를 관리하고, Tailwind CSS로 스타일링한 개인 기술 블로그입니다.
 techs:
   - Next.js
