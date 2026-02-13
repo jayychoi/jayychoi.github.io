@@ -19,11 +19,17 @@ const STATUS_CONFIG: Record<string, { label: string; className: string }> = {
   },
 };
 
+const PROJECT_TYPE_LABEL: Record<string, string> = {
+  personal: "개인 프로젝트",
+  team: "팀 프로젝트",
+  company: "회사 프로젝트",
+};
+
 function StatusBadge({ status }: { status: string }) {
   const config = STATUS_CONFIG[status] ?? STATUS_CONFIG["in-progress"];
   return (
     <span
-      className={`shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium ${config.className}`}
+      className={`shrink-0 rounded-full px-3 py-1 text-sm font-medium ${config.className}`}
     >
       {config.label}
     </span>
@@ -58,39 +64,42 @@ export default function ProjectsPage() {
       {projects.length === 0 ? (
         <p className="text-sm text-muted-foreground">프로젝트가 없습니다.</p>
       ) : (
-        <div className="grid gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((project) => (
             <Link
               key={project.slug}
               href={`/projects/${project.slug}`}
               className="group block rounded-lg border p-6 transition-colors hover:bg-gray-500/5 hover:border-foreground/60"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0 flex-1">
-                  <h2 className="text-xl font-semibold no-underline">
-                    {project.title}
-                  </h2>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    {project.description}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {project.techs.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+              <div className="flex items-start justify-between gap-3">
+                <h2 className="min-w-0 flex-1 text-xl font-semibold no-underline">
+                  {project.title}
+                </h2>
                 <StatusBadge status={project.status} />
               </div>
-              <div className="mt-3 text-xs text-muted-foreground">
-                {new Date(project.startDate).toLocaleDateString("ko-KR")}
-                {" ~ "}
-                {project.endDate &&
-                  new Date(project.endDate).toLocaleDateString("ko-KR")}
+              <div className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground">
+                <span>
+                  {new Date(project.startDate).toLocaleDateString("ko-KR")}
+                  {" ~ "}
+                  {project.endDate
+                    ? new Date(project.endDate).toLocaleDateString("ko-KR")
+                    : ""}
+                </span>
+                <span className="text-border">|</span>
+                <span>{PROJECT_TYPE_LABEL[project.projectType] ?? "개인 프로젝트"}</span>
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground line-clamp-2">
+                {project.description}
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {project.techs.map((tech) => (
+                  <span
+                    key={tech}
+                    className="rounded-full bg-muted px-2 py-px text-[0.65rem] font-medium"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
             </Link>
           ))}

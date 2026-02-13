@@ -35,6 +35,7 @@ export default function EditProjectPage() {
           description: project.description as string,
           techs: project.techs as string[],
           status: project.status as string,
+          projectType: (project.projectType as string) ?? "personal",
           startDate: project.startDate as string,
           endDate: (project.endDate as string) ?? "",
           github: (project.github as string) ?? "",

@@ -21,6 +21,7 @@ interface ProjectData {
   description: string;
   techs: string[];
   status: string;
+  projectType: string;
   startDate: string;
   endDate: string;
   github: string;
@@ -35,6 +36,7 @@ const defaultProject: ProjectData = {
   description: "",
   techs: [],
   status: "in-progress",
+  projectType: "personal",
   startDate: new Date().toISOString().slice(0, 10),
   endDate: "",
   github: "",
@@ -166,7 +168,7 @@ export default function ProjectEditor({
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         <div className="space-y-2">
           <Label>상태</Label>
           <Select
@@ -177,9 +179,25 @@ export default function ProjectEditor({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="in-progress">진행 중</SelectItem>
-              <SelectItem value="active">활성</SelectItem>
-              <SelectItem value="archived">보관</SelectItem>
+              <SelectItem value="in-progress">개발 중</SelectItem>
+              <SelectItem value="active">운영 중</SelectItem>
+              <SelectItem value="archived">종료</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label>프로젝트 유형</Label>
+          <Select
+            value={project.projectType}
+            onValueChange={(v) => update("projectType", v)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="personal">개인</SelectItem>
+              <SelectItem value="team">팀</SelectItem>
+              <SelectItem value="company">회사</SelectItem>
             </SelectContent>
           </Select>
         </div>

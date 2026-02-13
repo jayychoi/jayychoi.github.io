@@ -74,6 +74,7 @@ export function buildProjectMarkdown(
   }
 
   lines.push(`status: ${project.status}`);
+  lines.push(`projectType: ${project.projectType ?? "personal"}`);
   lines.push(`startDate: ${project.startDate}`);
   if (project.endDate) lines.push(`endDate: ${project.endDate}`);
   if (project.github) lines.push(`github: ${toYamlValue(project.github)}`);

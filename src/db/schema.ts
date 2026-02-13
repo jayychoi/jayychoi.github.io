@@ -27,6 +27,7 @@ export const projects = sqliteTable("projects", {
   github: text("github"),
   url: text("url"),
   thumbnail: text("thumbnail"),
+  projectType: text("project_type").notNull().default("personal"),
   content: text("content").notNull(),
 });
 

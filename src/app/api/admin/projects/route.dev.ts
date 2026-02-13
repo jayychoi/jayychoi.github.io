@@ -25,6 +25,7 @@ export async function POST(request: Request) {
       github: body.github || null,
       url: body.url || null,
       thumbnail: body.thumbnail || null,
+      projectType: body.projectType || "personal",
       content: body.content,
     })
     .returning()

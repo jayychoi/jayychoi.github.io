@@ -41,6 +41,7 @@ export async function PUT(
       github: body.github || null,
       url: body.url || null,
       thumbnail: body.thumbnail || null,
+      projectType: body.projectType || "personal",
       content: body.content,
     })
     .where(eq(projects.slug, slug))

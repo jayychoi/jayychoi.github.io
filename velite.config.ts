@@ -105,6 +105,7 @@ export default defineConfig({
         github: s.string().optional(),
         url: s.string().optional(),
         thumbnail: s.image().optional(),
+        projectType: s.enum(["personal", "team", "company"]).default("personal"),
         content: s.markdown(),
       }),
     },
