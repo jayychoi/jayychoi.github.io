@@ -20,14 +20,8 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
       { id: "java", label: "Java" },
       { id: "kotlin", label: "Kotlin" },
       { id: "rust", label: "Rust" },
+      { id: "python", label: "Python" },
       { id: "cpp", label: "C++" },
-    ],
-  },
-  {
-    label: "Linux",
-    categories: [
-      { id: "linux", label: "Linux" },
-      { id: "arch-linux", label: "Arch Linux" },
     ],
   },
   {
@@ -36,7 +30,15 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
       { id: "spring-boot", label: "Spring Boot" },
       { id: "spring-framework", label: "Spring Framework" },
       { id: "spring-data", label: "Spring Data" },
+      { id: "spring-security", label: "Spring Security" }
     ]
+  },
+  {
+    label: "Linux",
+    categories: [
+      { id: "linux", label: "Linux" },
+      { id: "arch-linux", label: "Arch Linux" },
+    ],
   },
   {
     label: "Database",
@@ -51,21 +53,16 @@ export const CATEGORY_GROUPS: CategoryGroup[] = [
     label: "DevOps",
     categories: [
       { id: "docker", label: "Docker" },
+      { id: "kubernetis", label: "Kubernetes" },
       { id: "github-actions", label: "GitHub Actions" },
     ],
   },
   {
-    label: "Algorithm",
-    categories: [{ id: "algorithm", label: "알고리즘" }],
-  },
-  {
-    label: "Tool",
-    categories: [{ id: "nvim", label: "Neovim" }],
-  },
-  {
-    label: "Etc",
+    label: "Misc",
     categories: [
+      { id: "algorithm", label: "알고리즘" },
       { id: "blog2", label: "블로그 만들기 v2" },
+      { id: "nvim", label: "Neovim" },
       { id: "retrospective", label: "회고" },
       { id: "opensource", label: "오픈소스" },
       { id: "etc", label: "기타" },

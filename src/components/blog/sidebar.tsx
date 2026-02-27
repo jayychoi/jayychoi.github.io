@@ -263,26 +263,28 @@ export default function Sidebar({
               시리즈가 없습니다.
             </p>
           ) : (
-            series.map((s) => {
-              const href = `/blog/series/${s.name}`;
-              const isActive = pathname === href;
-              return (
-                <Link
-                  key={s.name}
-                  href={href}
-                  className={`flex items-center justify-between rounded-md px-3 py-2 text-sm transition-colors ${
-                    isActive
-                      ? "bg-accent-color/10 text-accent-color font-semibold"
-                      : "text-gray-600 dark:text-gray-400 hover:bg-accent hover:text-gray-900 dark:hover:text-gray-300"
-                  }`}
-                >
-                  <span>{s.name}</span>
-                  <span className="text-muted-foreground text-xs">
-                    {s.count}
-                  </span>
-                </Link>
-              );
-            })
+            <div>
+              {series.map((s) => {
+                const href = `/blog/series/${s.name}`;
+                const isActive = pathname === href;
+                return (
+                  <Link
+                    key={s.name}
+                    href={href}
+                    className={`flex items-center justify-between rounded-md px-3 py-1.5 text-sm transition-colors ${
+                      isActive
+                        ? "bg-accent-color/10 text-accent-color font-semibold"
+                        : "text-gray-600 dark:text-gray-400 hover:bg-accent hover:text-gray-900 dark:hover:text-gray-300"
+                    }`}
+                  >
+                    <span>{s.name}</span>
+                    <span className="text-muted-foreground text-xs">
+                      {s.count}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
           ))}
       </nav>
     </aside>
